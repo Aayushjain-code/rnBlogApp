@@ -4,20 +4,20 @@ import { Context } from '../context/BlogContext';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const IndexScreen = () => {
-  const { state, addBlogPost } = useContext(Context);
+  const { state, addBlogPost, deleteBlogPost } = useContext(Context);
 
   return (
     <View>
       <Button title="Add Post" onPress={addBlogPost} />
       <FlatList
         data={state}
-        keyExtractor={blogPost => blogPost.title}
+        keyExtractor={blogPost => blogPost.id}
         renderItem={({ item }) => {
           return (
             <View style={styles.row}>
               <Text style={styles.title}>{item.title}-{item.id}</Text>
-              <TouchableOpacity onPress={()=>console.log(item.id)}>
-              <Icon name="trash" size={30} color="#000" />
+              <TouchableOpacity onPress={()=>deleteBlogPost(item.id)}>
+                 <Icon name="trash" size={30} color="#000" />
               </TouchableOpacity>
             </View>
           );
